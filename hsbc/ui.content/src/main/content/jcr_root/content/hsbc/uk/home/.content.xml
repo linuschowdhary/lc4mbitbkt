@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2018-01-21T15:22:36.461-05:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/hsbc/templates/page-content"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="home"
+        sling:resourceType="hsbc/components/structure/page">
+        <logo
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="hsbc/components/structure/logo"/>
+        <title
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="hsbc/components/content/title"/>
+        <topnav
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="hsbc/components/structure/topnav"/>
+        <par
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/parsys">
+            <text
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="hsbc/components/content/text"
+                text="&lt;p>This is a content page&lt;/p>"
+                textIsRich="true"/>
+            <loanrepaymentcalcula
+                jcr:created="{Date}2018-01-21T15:22:36.447-05:00"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2018-01-21T15:22:36.447-05:00"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="hsbc/components/content/loanrepaymentcalculator"/>
+        </par>
+    </jcr:content>
+</jcr:root>

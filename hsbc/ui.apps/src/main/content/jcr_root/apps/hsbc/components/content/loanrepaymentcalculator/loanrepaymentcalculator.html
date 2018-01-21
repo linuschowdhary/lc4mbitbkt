@@ -2,7 +2,6 @@
 ${loanCalculator.message}
 </pre>
 
-
 <section class="P-Tools">
     <header>
         <div class="M-Tools-Top">
@@ -13,7 +12,7 @@ ${loanCalculator.message}
 
     <section class="T-content">
         <div class="T-Tools-Left">
-            <sly data-sly-test="${properties.showCurrencyInput}">
+            <sly data-sly-test="${sharedProperties.showCurrencyInput}">
                 <div class="O-CurrencySlider">
                     <div class="M-Form-Fields M-CurrencyInputText A-CurrencySymbol-US">
                         <label class="A-Text-16B">How much would you like to borrow?</label>
@@ -29,7 +28,7 @@ ${loanCalculator.message}
                     </div>
                 </div>
             </sly>
-            <sly data=-sly-test="${properties.showDurationDropdown}">
+            <sly data=-sly-test="${sharedProperties.showDurationDropdown}">
                 <div class="A-Field">
                     <div class="M-Form-Fields">
                         <label class="A-Text-16B">Over how many months</label>

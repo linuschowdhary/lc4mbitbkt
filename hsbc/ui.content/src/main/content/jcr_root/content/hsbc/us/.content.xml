@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
+    jcr:mixinTypes="[rep:AccessControllable]"
     jcr:primaryType="cq:Page">
     <jcr:content
+        cq:lastModified="{Date}2018-01-21T14:50:25.198-05:00"
+        cq:lastModifiedBy="test"
         jcr:primaryType="nt:unstructured"
-        jcr:title="English"
-        pageTitle="New Project"
-        sling:resourceType="hsbc/components/structure/page">
+        jcr:title="US"
+        sling:resourceType="hsbc/components/structure/page"
+        pageTitle="New Project">
         <logo
             jcr:primaryType="nt:unstructured"
             sling:resourceType="hsbc/components/structure/logo"/>
@@ -21,16 +24,16 @@
             <title_0
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Service Component"
-                type="h2"
-                sling:resourceType="hsbc/components/content/title"/>
+                sling:resourceType="hsbc/components/content/title"
+                type="h2"/>
             <loanrepaymentcalculator
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="hsbc/components/content/loanrepaymentcalculator"/>
             <title_1
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Lorem ipsum"
-                type="h2"
-                sling:resourceType="hsbc/components/content/title"/>
+                sling:resourceType="hsbc/components/content/title"
+                type="h2"/>
             <text
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="hsbc/components/content/text"
@@ -68,5 +71,29 @@
         <image jcr:primaryType="nt:unstructured">
             <file/>
         </image>
+        <global-component-properties
+            jcr:lastModified="{Date}2018-01-21T13:46:28.319-05:00"
+            jcr:lastModifiedBy="admin"
+            jcr:mixinTypes="[rep:AccessControllable]"
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="hsbc/components/content/loanrepaymentcalculator"
+            titleText="globaltest"/>
+        <shared-component-properties jcr:primaryType="nt:unstructured">
+            <hsbc jcr:primaryType="nt:unstructured">
+                <components jcr:primaryType="nt:unstructured">
+                    <content jcr:primaryType="nt:unstructured">
+                        <loanrepaymentcalculator
+                            jcr:lastModified="{Date}2018-01-21T14:50:25.188-05:00"
+                            jcr:lastModifiedBy="test"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="hsbc/components/content/loanrepaymentcalculator"
+                            referencedPage="test"
+                            titleText="sharedTEstss"/>
+                    </content>
+                </components>
+            </hsbc>
+        </shared-component-properties>
     </jcr:content>
+    <home/>
+    <rep:policy/>
 </jcr:root>

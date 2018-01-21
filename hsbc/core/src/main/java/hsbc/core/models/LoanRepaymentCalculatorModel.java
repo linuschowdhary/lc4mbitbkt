@@ -15,16 +15,20 @@
  */
 package hsbc.core.models;
 
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.settings.SlingSettingsService;
+import com.adobe.acs.commons.wcm.properties.shared.SharedComponentProperties;
 
-@Model(adaptables=Resource.class)
+@Model(adaptables=SlingHttpServletRequest.class)
 public class LoanRepaymentCalculatorModel {
 
     @Inject
@@ -34,6 +38,9 @@ public class LoanRepaymentCalculatorModel {
     protected String resourceType;
 
     private String message;
+
+    @Inject
+    private SharedComponentProperties sharedComponentProperties;
 
     @PostConstruct
     protected void init() {
