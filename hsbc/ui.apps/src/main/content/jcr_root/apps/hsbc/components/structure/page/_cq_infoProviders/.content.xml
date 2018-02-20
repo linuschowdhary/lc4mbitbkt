@@ -34,7 +34,4 @@
     <responsive
         jcr:primaryType="nt:unstructured"
         className="com.day.cq.wcm.core.impl.ResponsiveInfoProvider"/>
-    <sharedComponentProps
-        jcr:primaryType="nt:unstructured"
-        className="com.adobe.acs.commons.wcm.properties.shared.impl.SharedComponentPropertiesPageInfoProvider"/>
 </jcr:root>

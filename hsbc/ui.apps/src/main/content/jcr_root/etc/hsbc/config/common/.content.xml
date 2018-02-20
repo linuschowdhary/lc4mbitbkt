@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          loanCalculatorHK="/etc/hsbc/config/hk"
+          loanCalculatorUK="/etc/hsbc/config/uk"
+          loanCalculatorChina="/etc/hsbc/config/china"
+          loanCalculatorAustralia="/etc/hsbc/config/australia"
+/>

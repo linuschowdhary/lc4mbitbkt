@@ -3,4 +3,5 @@
     <filter root="/apps/hsbc"/>
     <filter root="/apps/sling" />
     <filter root="/etc/designs/hsbc"/>
+    <filter root="/etc/hsbc/config"/>
 </workspaceFilter>

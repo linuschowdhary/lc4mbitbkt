@@ -1,6 +1,7 @@
-<pre data-sly-use.loanCalculator="hsbc.core.models.LoanRepaymentCalculatorModel">
-${loanCalculator.message}
-</pre>
+<pre data-sly-use.loanCalculator="hsbc.core.models.LoanRepaymentCalculatorModel"/>
+
+<sly data-sly-use.configMap="hsbc.core.models.LoanRepaymentCalculatorModel" data-sly-list="${hashmap.properties.keySet.iterator}"/>
+
 
 <section class="P-Tools">
     <header>
@@ -12,7 +13,7 @@ ${loanCalculator.message}
 
     <section class="T-content">
         <div class="T-Tools-Left">
-            <sly data-sly-test="${sharedProperties.showCurrencyInput}">
+            <sly data-sly-test="${configMap.properties['showCurrencyInput']}">
                 <div class="O-CurrencySlider">
                     <div class="M-Form-Fields M-CurrencyInputText A-CurrencySymbol-US">
                         <label class="A-Text-16B">How much would you like to borrow?</label>
@@ -70,4 +71,3 @@ ${loanCalculator.message}
 
     <footer><a href="" class="A-button-red">Get Started</a></footer>
 </section>
-

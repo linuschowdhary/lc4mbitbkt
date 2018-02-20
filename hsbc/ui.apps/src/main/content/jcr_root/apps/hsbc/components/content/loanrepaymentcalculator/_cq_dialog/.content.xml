@@ -25,6 +25,18 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
+                            <services
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/select"
+                                    multiple="{Boolean}false"
+                                    fieldLabel="Services"
+                                    emptyText="Select Loan Calculator Config"
+                                    name="./config">
+                                <datasource
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="hsbc/components/content/loanrepaymentcalculator/datasource"
+                                        path="/etc/hsbc/config/common" />
+                            </services>
                             <showcurrencyinput
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"

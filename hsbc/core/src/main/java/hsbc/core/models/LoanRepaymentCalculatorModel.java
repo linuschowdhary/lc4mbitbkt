@@ -18,15 +18,16 @@ package hsbc.core.models;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Default;
+import org.apache.sling.api.resource.*;
+
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.settings.SlingSettingsService;
-import com.adobe.acs.commons.wcm.properties.shared.SharedComponentProperties;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Model(adaptables=SlingHttpServletRequest.class)
 public class LoanRepaymentCalculatorModel {
@@ -34,22 +35,39 @@ public class LoanRepaymentCalculatorModel {
     @Inject
     private SlingSettingsService settings;
 
-    @Inject @Named("sling:resourceType") @Default(values="No resourceType")
-    protected String resourceType;
-
-    private String message;
+/*
+    @Inject @Named("config") @Default(values="No resourceType")
+    protected String configPath;
+*/
 
     @Inject
-    private SharedComponentProperties sharedComponentProperties;
+    protected ResourceResolver resolver;
+
+    @Inject
+    protected Resource resource;
+
+    private HashMap hashMap=null;
 
     @PostConstruct
     protected void init() {
-        message = "\tHello World!\n";
-        message += "\tThis is instance: " + settings.getSlingId() + "\n";
-        message += "\tResource type is: " + resourceType + "\n";
+    ValueMap resourceValueMap = ResourceUtil.getValueMap(resource);
+    String configPath=resourceValueMap.get("config", "");
+    if(StringUtils.isNotEmpty(configPath)) {
+        Resource configResource = resolver.resolve(configPath);
+        ValueMap valueMap = ResourceUtil.getValueMap(configResource);
+        hashMap = new HashMap<String, Boolean>();
+        for (Map.Entry<String, Object> e : valueMap.entrySet()) {
+            if (e.getKey() != "jcr:primaryType") {
+                String key = e.getKey();
+                Boolean value = Boolean.parseBoolean(e.getValue().toString());
+                hashMap.put(key, value);
+            }
+        }
+    }
     }
 
-    public String getMessage() {
-        return message;
+    public HashMap getProperties(){
+        return hashMap;
     }
+
 }
