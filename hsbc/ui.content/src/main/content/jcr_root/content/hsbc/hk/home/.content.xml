@@ -35,5 +35,4 @@
                 sling:resourceType="hsbc/components/content/loanrepaymentcalculator"/>
         </par>
     </jcr:content>
-    <rep:policy/>
 </jcr:root>

@@ -6,7 +6,7 @@
         cq:lastModified="{Date}2018-01-21T14:50:25.198-05:00"
         cq:lastModifiedBy="test"
         jcr:primaryType="nt:unstructured"
-        jcr:title="US"
+        jcr:title="HK"
         sling:resourceType="hsbc/components/structure/page"
         pageTitle="New Project">
         <logo
@@ -96,4 +96,5 @@
     </jcr:content>
     <home/>
     <rep:policy/>
+    <configurations/>
 </jcr:root>

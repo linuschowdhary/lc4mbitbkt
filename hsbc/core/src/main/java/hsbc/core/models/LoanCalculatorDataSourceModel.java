@@ -7,6 +7,8 @@ import com.adobe.granite.ui.components.ds.SimpleDataSource;
 import com.adobe.granite.ui.components.ds.ValueMapResource;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
@@ -16,10 +18,8 @@ import org.apache.sling.settings.SlingSettingsService;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.jcr.Node;
+import java.util.*;
 
 @Model(adaptables = SlingHttpServletRequest.class)
 public class LoanCalculatorDataSourceModel {
@@ -49,14 +49,34 @@ public class LoanCalculatorDataSourceModel {
         request.setAttribute(DataSource.class.getName(), EmptyDataSource.instance());
 
         ValueMap dsConfigProperties = ResourceUtil.getValueMap(datasource);
-        String dsPath = dsConfigProperties.get("path", String.class);
+
+        //String dsPath = dsConfigProperties.get("path", String.class);
+        String dsPath = "/content/hsbc/uk/configurations/loan-calculator/jcr:content";
+
         Resource dsResource = resolver.resolve(dsPath);
         ValueMap dsProperties = ResourceUtil.getValueMap(dsResource);
 
         List<Resource> resourceList = new ArrayList<>();
         ValueMap valueMap = null;
-        for (Map.Entry<String, Object> e : dsProperties.entrySet()) {
-            if(e.getKey()!="jcr:primaryType"){
+
+
+        Resource pageResource = resolver.resolve("/content/hsbc/uk/configurations/loan-calculator" + "/jcr:content");
+        Iterator<Resource> children = pageResource.getChildren().iterator();
+
+
+        while (children.hasNext()) {
+            Resource child = children.next();
+            ValueMap dsPropertiesValueMap = ResourceUtil.getValueMap(child);
+            valueMap = new ValueMapDecorator(new HashMap<String, Object>());
+            valueMap.put("value", child.getName());
+            valueMap.put("text", dsPropertiesValueMap.get("configTitle"));
+            resourceList.add(new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", valueMap));
+        }
+
+
+
+        /*for (Map.Entry<String, Object> e : dsProperties.entrySet()) {
+            if(e.getKey()){
                 String key = e.getKey();
                 String value = e.getValue().toString();
                 valueMap = new ValueMapDecorator(new HashMap<String, Object>());
@@ -65,7 +85,8 @@ public class LoanCalculatorDataSourceModel {
                 valueMap.put("text", key);
                 resourceList.add(new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", valueMap));
             }
-        }
+        }*/
+
         DataSource dataSource = new SimpleDataSource(resourceList.iterator());
         request.setAttribute(DataSource.class.getName(), dataSource);
 

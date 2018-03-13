@@ -1,2 +1,8 @@
 #base=css
+editor.dataTables.min.css
+buttons.dataTables.min.css
+jquery.dataTables.min.css
+select.dataTables.min.css
+buttons.dataTables.min.css
 styles.css
+index.css

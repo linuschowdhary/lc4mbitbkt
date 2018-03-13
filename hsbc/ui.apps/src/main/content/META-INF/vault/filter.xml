@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
-    <filter root="/apps/hsbc"/>
+    <filter root="/apps/hsbc" mode="replace"/>
     <filter root="/apps/sling" />
     <filter root="/etc/designs/hsbc"/>
     <filter root="/etc/hsbc/config"/>

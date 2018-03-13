@@ -1,73 +1,23 @@
-<pre data-sly-use.loanCalculator="hsbc.core.models.LoanRepaymentCalculatorModel"/>
 
-<sly data-sly-use.configMap="hsbc.core.models.LoanRepaymentCalculatorModel" data-sly-list="${hashmap.properties.keySet.iterator}"/>
-
-
-<section class="P-Tools">
-    <header>
-        <div class="M-Tools-Top">
-            <h2 class="A-Text-38L">Loan Repayment Calculator</h2>
-            <p class="A-Text-16R">Text fields typically reside in forms but can appear in other places.</p>
-        </div>
-    </header>
-
-    <section class="T-content">
-        <div class="T-Tools-Left">
-            <sly data-sly-test="${configMap.properties['showCurrencyInput']}">
-                <div class="O-CurrencySlider">
-                    <div class="M-Form-Fields M-CurrencyInputText A-CurrencySymbol-US">
-                        <label class="A-Text-16B">How much would you like to borrow?</label>
-                        <span class="A-Text-14R">Enter an amount to the nearest £10</span>
-                        <div class="A-Field"><input type="text" value="" class="range-output A-FormFields-InputText A-Text-16R"></div>
-                    </div>
-                    <div class="M-Form-Fields M-RangeSlider">
-                        <input type="range" min="5000" max="50000" step="1000" value="15000" data-rangeslider="" style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0;"><div class="rangeslider rangeslider--horizontal" id="js-rangeslider-0"><div class="rangeslider__fill" style="width: 115.6px;"></div><div class="rangeslider__handle" style="left: 102.6px;"></div></div>
-                        <div class="M-RangeValues">
-                            <span class="A-Text-14R Digits">$5,000</span>
-                            <span class="A-Text-14R Digits">$50,000</span>
-                        </div>
-                    </div>
-                </div>
-            </sly>
-            <sly data=-sly-test="${sharedProperties.showDurationDropdown}">
-                <div class="A-Field">
-                    <div class="M-Form-Fields">
-                        <label class="A-Text-16B">Over how many months</label>
-                        <span class="A-Text-14R">12-60 months, according to your needs</span>
-                        <select class="A-FormFields-DropDown A-Text-16R A-Layout-66">
-                            <option>Please select</option>
-                            <option>12 months</option>
-                            <option>24 months</option>
-                            <option>36 months</option>
-                            <option>48 months</option>
-                            <option>60 months</option>
-                        </select>
-                    </div>
-                </div>
-            </sly>
-        </div>
-
-        <div class="T-Tools-Right">
-            <div class="M-Tool-Info">
-                <h3 class="A-Text-28L">Your repayment estimate</h3>
-                <p class="A-SmallType A-Text-14R">This repayment amount should be used as an indication only. <br>The calculation includes a $150 Establishment Fee and a $5 Monthly Service Fee but does not take into account other fees and charges that are unascertainable at this time.</p>
+<div class="pws-page">
+    <!-- end -->
+    <div class="sys-content"></div>
+    <!-- Tool -->
+    <section class="P-Tools">
+        <header>
+            <div class="M-Tools-Top">
+                <h2 class="A-Text-38L">Personal Instalment Loan repayment calculator</h2>
+                <p class="A-Text-16R">See how much your monthly and total repayments would be, based on how much you’d like to borrow, and how long for.</p>
             </div>
-            <div class="M-Tool-Results">
-                <div>
-                    <div class="A-Text-14R">Repayment</div>
-                    <div class="A-Text-22R">$944 per month</div>
-                </div>
-                <div>
-                    <div class="A-Text-14R">Length</div>
-                    <div class="A-Text-22R">2 years</div>
-                </div>
-                <div>
-                    <div class="A-Text-14R">Interest rate</div>
-                    <div class="A-Text-22R">10.99% fixed</div>
-                </div>
-            </div>
-        </div>
+        </header>
+        <section class="T-content">
+            <div data-component="LoanForm" data-habitat-class="T-Tools-Left">></div>
+            <div data-component="LoanResult" data-habitat-class="T-Tools-Right">></div>
+        </section>
+        <footer><a href="" class="A-button-red">Get Started</a></footer>
     </section>
-
-    <footer><a href="" class="A-button-red">Get Started</a></footer>
-</section>
+    <!-- /end Tool -->
+</div>
+<!-- Main PWS Wrapper -->
+</div>
+<!-- end -->
