@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.util.NodeUtil;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.HttpConstants;
@@ -77,7 +78,6 @@ public class LoanCalculatorConfigServlet extends SlingAllMethodsServlet {
     @Override
     protected void doPost(final SlingHttpServletRequest request,
                           final SlingHttpServletResponse response) throws ServletException, IOException {
-
         try {
             Node configNode = null;
             ResourceResolver resourceResolver = request.getResourceResolver();
@@ -85,33 +85,54 @@ public class LoanCalculatorConfigServlet extends SlingAllMethodsServlet {
             PrintWriter out = response.getWriter();
             if (isMultipart) {
                 final java.util.Map<String, org.apache.sling.api.request.RequestParameter[]> params = request.getRequestParameterMap();
-                final String configName = IOUtils.toString(params.get("configName")[0].getInputStream());
+                final String action = IOUtils.toString(params.get("action")[0].getInputStream());
                 final String pagePath = IOUtils.toString(params.get("pagePath")[0].getInputStream());
                 Resource pageResource = resourceResolver.resolve(pagePath + "/jcr:content");
-                Node pageNode = pageResource.adaptTo(Node.class);
-                //write all key value pairs to node
-                for (final java.util.Map.Entry<String, org.apache.sling.api.request.RequestParameter[]> pairs : params.entrySet()) {
-                    final String k = pairs.getKey();
-                    final org.apache.sling.api.request.RequestParameter[] pArr = params.get(k);
-                    final org.apache.sling.api.request.RequestParameter param = pArr[0];
-                    final InputStream stream = param.getInputStream();
-                    String content = IOUtils.toString(stream);
-                    String validNodeName = JcrUtil.createValidName(configName);
-                    if (pageNode.hasNode(validNodeName)) {
-                        configNode = pageNode.getNode(validNodeName);
-                    } else {
-                        configNode = pageNode.addNode(validNodeName);
-                    }
-                    configNode.setProperty(k, content);
-                    resourceResolver.commit();
+                if ("create".equals(action)) {
+                    saveProperties(resourceResolver, params, pageResource);
+                } else if ("edit".equals(action)) {
+                    saveProperties(resourceResolver, params, pageResource);
+                } else if ("delete".equals(action)) {
+                    deleteConfig(resourceResolver, params, pageResource);
                 }
-
                 returnJsonResponse(response, pageResource);
             }
-
-
         } catch (Exception e) {
             log.error(e.getMessage());
+        }
+    }
+
+    private void deleteConfig(ResourceResolver resourceResolver, Map<String, RequestParameter[]> params, Resource pageResource) throws IOException, RepositoryException {
+        final String configName = IOUtils.toString(params.get("configName")[0].getInputStream());
+        Node pageNode = pageResource.adaptTo(Node.class);
+        String validNodeName = JcrUtil.createValidName(configName);
+        Node node = pageNode.getNode(validNodeName);
+        if (node != null) {
+            node.remove();
+            resourceResolver.commit();
+        }
+
+    }
+
+    private void saveProperties(ResourceResolver resourceResolver, Map<String, RequestParameter[]> params, Resource pageResource) throws IOException, RepositoryException {
+        Node configNode=null;
+        final String configName = IOUtils.toString(params.get("configName")[0].getInputStream());
+        String validNodeName = JcrUtil.createValidName(configName);
+        Node pageNode = pageResource.adaptTo(Node.class);
+        //write all key value pairs to node
+        for (final Map.Entry<String, RequestParameter[]> pairs : params.entrySet()) {
+            final String k = pairs.getKey();
+            final RequestParameter[] pArr = params.get(k);
+            final RequestParameter param = pArr[0];
+            final InputStream stream = param.getInputStream();
+            String content = IOUtils.toString(stream);
+            if (pageNode.hasNode(validNodeName)) {
+                configNode = pageNode.getNode(validNodeName);
+            } else {
+                configNode = pageNode.addNode(validNodeName);
+            }
+            configNode.setProperty(k, content);
+            resourceResolver.commit();
         }
     }
 }

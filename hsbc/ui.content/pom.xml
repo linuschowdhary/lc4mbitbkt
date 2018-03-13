@@ -88,13 +88,13 @@
                 <artifactId>content-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <subPackages>
+                   <!-- <subPackages>
                         <subPackage>
                             <groupId>com.adobe.acs</groupId>
                             <artifactId>acs-aem-commons-content</artifactId>
                             <filter>true</filter>
                         </subPackage>
-                    </subPackages>
+                    </subPackages>-->
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <verbose>true</verbose>
                     <failOnError>true</failOnError>
@@ -126,12 +126,12 @@
             <artifactId>uber-jar</artifactId>
             <classifier>apis</classifier>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.adobe.acs</groupId>
             <artifactId>acs-aem-commons-content</artifactId>
             <version>3.14.0</version>
             <type>content-package</type>
-            <classifier>min</classifier> <!-- optional, see below -->
-        </dependency>
+            <classifier>min</classifier> &lt;!&ndash; optional, see below &ndash;&gt;
+        </dependency>-->
     </dependencies>
 </project>

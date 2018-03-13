@@ -2,7 +2,9 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function () {
     editor = new $.fn.dataTable.Editor({
+        idSrc:"configName",
         ajax: {
+
             url: "/bin/servlet/loancalculatorconfig",
             type: 'POST',
             mimeType: "multipart/form-data",
@@ -16,7 +18,6 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 data: function (d) {
-                    debugger;
                     var form = document.querySelector('form');
                     var fData = new FormData(form);
                     for (var eachVal in d.data[0]) {
@@ -25,6 +26,27 @@ $(document).ready(function () {
                         }
                     }
                     fData.append("pagePath", document.location.pathname.split(".html")[0]);
+                    fData.append("action", "create");
+                    return fData;
+                }
+            },
+            edit: {
+                type: 'POST',
+                url: '/bin/servlet/loancalculatorconfig',
+                contentType: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                data: function (d) {
+                    debugger;
+                    var form = document.querySelector('form');
+                    var fData = new FormData(form);
+                    for (var eachVal in d.data[$("form #DTE_Field_configName").val()]) {
+                        if (!fData.has(eachVal)) {
+                            fData.append(eachVal, d.data[$("form #DTE_Field_configName").val()][eachVal]);
+                        }
+                    }
+                    fData.append("pagePath", document.location.pathname.split(".html")[0]);
+                    fData.append("action", "edit");
                     return fData;
                 }
             }
