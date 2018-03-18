@@ -1,6 +1,8 @@
 package hsbc.core.servlets;
 
 import com.day.cq.commons.jcr.JcrUtil;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import hsbc.core.pojo.CSV;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.util.NodeUtil;
@@ -22,12 +24,13 @@ import javax.jcr.RepositoryException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 
 @Component(service = Servlet.class,
@@ -131,7 +134,33 @@ public class LoanCalculatorConfigServlet extends SlingAllMethodsServlet {
             } else {
                 configNode = pageNode.addNode(validNodeName);
             }
+
+
+
             configNode.setProperty(k, content);
+            if(StringUtils.equals(k,"csvFileUpload")){
+                //convertcsvtojson
+                InputStream streams = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+                try (InputStream in = streams) {
+                    CSV csv = new CSV(true, ',', in );
+                    List< String > fieldNames = null;
+                    if (csv.hasNext())
+                        fieldNames = new ArrayList< >(csv.next());
+                    List < Map < String, String >> list = new ArrayList < > ();
+                    while (csv.hasNext()) {
+                        List < String > x = csv.next();
+                        Map < String, String > obj = new LinkedHashMap< >();
+                        for (int i = 0; i < fieldNames.size(); i++) {
+                            obj.put(fieldNames.get(i), x.get(i));
+                        }
+                        list.add(obj);
+                    }
+                    ObjectMapper mapper = new ObjectMapper();
+                    mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                    //mapper.writeValue(System.out, list);
+                    configNode.setProperty("csvFileUploadJSON",mapper.writeValueAsString(list));
+                }
+            }
             resourceResolver.commit();
         }
     }

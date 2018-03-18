@@ -68,7 +68,7 @@ public class LoanCalculatorDataSourceModel {
             Resource child = children.next();
             ValueMap dsPropertiesValueMap = ResourceUtil.getValueMap(child);
             valueMap = new ValueMapDecorator(new HashMap<String, Object>());
-            valueMap.put("value", child.getName());
+            valueMap.put("value", child.getPath());
             valueMap.put("text", dsPropertiesValueMap.get("configTitle"));
             resourceList.add(new ValueMapResource(resolver, new ResourceMetadata(), "nt:unstructured", valueMap));
         }
